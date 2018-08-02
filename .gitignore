@@ -1,3 +1,9 @@
+# IDEA Files
+.idea/
+*.iml
+*.ipr
+*.iws
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
