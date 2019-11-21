@@ -5,9 +5,9 @@ class CSVObject(object):
     into memory.
     """
 
-    def __init__(self, fileName, delims, quotes):
+    def __init__(self, fileName, delimiters, quotes):
         self.fileName = fileName
-        self.delims = delims
+        self.delimiters = delimiters
         self.quotes = quotes
         self.fin = open(fileName, 'r')
 
@@ -16,9 +16,9 @@ class CSVObject(object):
 
     def next(self):
         line = self.fin.next()
-        return self.ParseLine(line)
+        return self.parseLine(line)
 
-    def ParseLine(self, line):
+    def parseLine(self, line):
         """
         Parses a line of CSV text into components. This attempts to
         be a proper parser that can cope with multiple delimiters.
@@ -34,7 +34,7 @@ class CSVObject(object):
                     inQuote = False  # flag that we're not in a quote any more
                 else:  # But if char is a non-matching quote...
                     token += char  # ...just add to token
-            elif char in self.delims:  # or if char is a delimiter...
+            elif char in self.delimiters:  # or if char is a delimiter...
                 if len(token) > 0:  # ...and token is worth recording...
                     tokens.append(token)  # add token to list
                     token = ''  # and begin new token
@@ -52,8 +52,8 @@ class CSVObject(object):
 
 if __name__ == '__main__':
     fName = './test.csv'
-    delims = ',; '
+    delimiters = ',; '
     quotes = '"' + "'"
-    CSVFile = CSVObject(fName, delims, quotes)
+    CSVFile = CSVObject(fName, delimiters, quotes)
     for line in CSVFile:
-        print line
+        print(line)
