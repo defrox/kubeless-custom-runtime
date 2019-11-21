@@ -102,11 +102,32 @@ curl -L --data '{"file": "lib/test.csv"}' \
   localhost:8080/api/v1/namespaces/default/services/counter:http-function-port/proxy/
 ```
 
+### 5. Setting up a private registry ###
 
+Create a secret to configure your private docker registry:
+```
+kubectl create secret docker-registry kubeless-registry-credentials \
+  --docker-server=<url-to-your-private-registry> \
+  --docker-username=<your-user> \
+  --docker-password=<your-password> \
+  --docker-email=<your-user@example.com>
+```
+Or if you want to use a secret with a custom name, then create it with:
+```
+kubectl create secret docker-registry <your-secret-name> \
+  --docker-server=<url-to-your-private-registry> \
+  --docker-username=<your-user> \
+  --docker-password=<your-password> \
+  --docker-email=<your-user@example.com>
+```
+and specify `provision-image-secret` with the new secret name ìn the image configuration.
 
+**NOTE:** check the _Known limitations_ at the end of the doc: https://kubeless.io/docs/building-functions/
+
+---
 **Related links:**
 
-[Article](https://medium.com/@christianaxel.schmidt/how-to-create-a-custom-kubeless-runtime-image-96ad2f8ead19)
+[Tutorial article](https://medium.com/@christianaxel.schmidt/how-to-create-a-custom-kubeless-runtime-image-96ad2f8ead19)
 
 https://github.com/kubeless/kubeless/blob/master/docs/implementing-new-runtime.md
 
@@ -115,3 +136,7 @@ https://github.com/kubeless/kubeless/blob/master/docs/runtimes.md#use-a-custom-r
 https://kubeless.io/docs/implementing-new-runtime/
 
 https://github.com/kubeless/runtimes
+
+https://kubeless.io/docs/building-functions/
+
+https://kubeless.io/docs/function-controller-configuration/
